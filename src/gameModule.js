@@ -60,6 +60,10 @@ const gameModule = (() => {
       } else {
         DOMModule.displayMessage('Computer Wins!');
       }
+      const playerStats = document.getElementById('playerStats');
+      const computerStats = document.getElementById('computerStats');
+      DOMModule.displayStats(playerStats, player);
+      DOMModule.displayStats(computerStats, computer);
       const button = document.getElementById('restart');
       button.classList.remove('hide');
       button.addEventListener(
@@ -77,7 +81,7 @@ const gameModule = (() => {
 
   const attack = (attacker, opponent, row, col, div) => {
     if (!attacker.active) return;
-
+    
     const result = opponent.board.receiveAttack(row, col) ? 'hit' : 'miss';
     DOMModule.addClassToDiv(div, result);
     if (result === 'miss') {
@@ -117,8 +121,8 @@ const gameModule = (() => {
     const computerBoard = gameboardFactory();
     const playerShips = initializeBoard(playerBoard);
     const computerShips = initializeBoard(computerBoard);
-    const player = playerFactory(true, playerBoard, null);
-    const computer = playerFactory(false, computerBoard, []);
+    const player = playerFactory(true, playerBoard, playerShips, null);
+    const computer = playerFactory(false, computerBoard, computerShips, []);
     DOMModule.displayBoard(playerBoardDiv, player.board.matrix);
     DOMModule.displayBoard(computerBoardDiv, null);
     DOMModule.displayShips(playerShips);

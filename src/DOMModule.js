@@ -18,6 +18,11 @@ const DOMModule = (() => {
     }
   };
 
+  const displayStats = (div, player) => {
+    const sunk = player.sunkShips();
+    div.innerHTML = `${sunk}/10 Ships Sunk`;
+  };
+
   const displayShips = (ships) => {
     ships.forEach((ship) => {
       for (let i = 0; i < ship.cells.length; i++) {
@@ -51,7 +56,7 @@ const DOMModule = (() => {
     message.textContent = msg;
   }
 
-  return { displayBoard, displayShips, addClassToDiv, cleanBoard, displayMessage };
+  return { displayBoard, displayShips, addClassToDiv, cleanBoard, displayMessage, displayStats };
 })();
 
 export default DOMModule;
