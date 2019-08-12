@@ -1,73 +1,125 @@
+@import url('https://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700,900|Poppins:400,500,700&display=swap');
+
+:root {
+  --lime: #a4e868;
+  --green: #41ae5f;
+  --tile: #81ccb8;
+  --lilac: #8597cb;
+  --marine: #28567f;
+  --light-blue: #d1e8f9;
+  --bright-blue: #0096e7;
+  --water: #67b9cc;
+  --light-gray: #e6e7e8;
+  --middle-gray: #bdc3c7;
+  --dark-gray: #95a5a5;
+  --slate: #546a78;
+  --pink: #d75e71;
+  --orange: #f29d37;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 body {
   text-align: center;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  background-color: var(--tile);
 }
 
 h1 {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 48px;
+  font-weight: 900;
   text-align: center;
-  font-size: 40px;
-  margin-top: 30px;
+}
+
+h4 {
+  font-size: 1.3em;
+  margin-bottom: 20px;
+  margin-top: 0px;
+}
+
+.main-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 50px;
 }
 
 #main {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: flex-start;
   align-content: flex-start;
+  width: 100%;
   max-width: 1000px;
-  margin: 50px auto;
+  margin: 0 auto;
 }
 
-#main > div {
+.board-container {
   position: relative;
   text-align: center;
 }
 
-#playerBoard,
-#computerBoard {
+.board {
+  background-color: var(--slate);
   width: 400px;
   height: 400px;
   display: grid;
   margin-bottom: 20px;
   grid-template-columns: repeat(10, 1fr);
+  grid-gap: 1px;
   box-sizing: border-box;
-  border: 1px solid black;
+  border: 2px solid black;
   position: relative;
 }
 
-div.playerBoard,
-div.computerBoard {
-  border: 1px solid rgba(0, 0, 0, 0.3);
+.playerBoard,
+.computerBoard,
+.computerBoard.inactive {
+  background-color: var(--light-gray);
 }
 
 .playerBoard.ship {
-  background-color: blue;
+  background-color: var(--marine);
 }
 
 .playerBoard.ship.horizontal {
-  border-top: 2px solid green;
-  border-bottom: 2px solid green;
+  border-top: 2px solid var(--bright-blue);
+  border-bottom: 2px solid var(--bright-blue);
 }
 
 .playerBoard.ship.vertical {
-  border-right: 2px solid green;
-  border-left: 2px solid green;
+  border-right: 2px solid var(--bright-blue);
+  border-left: 2px solid var(--bright-blue);
 }
 
 .playerBoard.ship.first-cell.horizontal {
-  border-left: 2px solid green;
+  border-left: 2px solid var(--bright-blue);
 }
 
 .playerBoard.ship.last-cell.horizontal {
-  border-right: 2px solid green;
+  border-right: 2px solid var(--bright-blue);
 }
 
 .playerBoard.ship.first-cell.vertical {
-  border-top: 2px solid green;
+  border-top: 2px solid var(--bright-blue);
 }
 
 .playerBoard.ship.last-cell.vertical {
-  border-bottom: 2px solid green;
+  border-bottom: 2px solid var(--bright-blue);
 }
 
 .hit,
@@ -75,14 +127,11 @@ div.computerBoard {
   pointer-events: none;
 }
 
-.hit {
-  background-color: red;
-}
-
 .miss {
-  background-color: lightblue;
+  background-color: var(--water);
 }
 
+.computerBoard.hit,
 .playerBoard.hit {
   background-color: brown;
 }
@@ -93,29 +142,45 @@ div.computerBoard {
   margin-bottom: 15px;
 }
 
-#restart {
-  padding: 20px;
-}
-
-#randomize,
-#play {
-  padding: 20px;
-  font-size: 20px;
+.button {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 1em;
+  padding: 15px;
+  min-width: 150px;
+  background-color: var(--slate);
+  border: 2px solid black;
+  color: var(--light-gray);
 }
 
 #play {
   position: absolute;
-  width: 200px;
-  top: 40%;
-  left: calc(50% - 100px);
+  top: calc(50% - 15px);
+  left: calc(50% - 75px);
+}
+
+#restart {
+  margin: 0 auto 50px;
+  width: 150px;
+  background-color: var(--marine);
 }
 
 .inactive {
   pointer-events: none;
-  background-color: #eeeeee;
-  opacity: 0.2;
+  opacity: 0.5;
 }
 
 .hide {
   display: none;
+}
+
+@media (max-width: 880px) {
+  #randomize {
+    margin-bottom: 45px;
+  }
+
+  .board {
+    width: 300px;
+    height: 300px;
+  }
 }
