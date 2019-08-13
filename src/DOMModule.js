@@ -1,5 +1,8 @@
+import BlackShip from './img/ship-black.svg';
+import BrownShip from './img/ship-brown.svg';
+
 const DOMModule = (() => {
-  const displayBoard = (parent, matrix) => {
+  const displayBoard = (parent, matrix = null) => {
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
         const div = document.createElement('div');
@@ -18,11 +21,16 @@ const DOMModule = (() => {
     }
   };
 
+  const displayStats = (div, player) => {
+    const sunk = player.sunkShips();
+    div.innerHTML = `${sunk}/10 Ships Sunk`;
+  };
+
   const displayShips = (ships) => {
     ships.forEach((ship) => {
       for (let i = 0; i < ship.cells.length; i++) {
         const div = document.getElementById(
-          `${ship.cells[i][0]}${ship.cells[i][1]}`
+          `${ship.cells[i][0]}${ship.cells[i][1]}`,
         );
         if (i === 0) div.classList.add('first-cell');
         if (i === ship.cells.length - 1) div.classList.add('last-cell');
@@ -49,9 +57,49 @@ const DOMModule = (() => {
   const displayMessage = (msg) => {
     const message = document.getElementById('message');
     message.textContent = msg;
-  }
+  };
 
-  return { displayBoard, displayShips, addClassToDiv, cleanBoard, displayMessage };
+  const displayShipIcons = (container) => {
+    for (let i = 0; i < 10; i++) {
+      const ship = new Image();
+      ship.src = BlackShip;
+      ship.classList.add('shipIcon');
+      container.appendChild(ship);
+    }
+  };
+
+  const updateShipIcons = (container, player) => {
+    if (+player.sunkShips() < 1) return;
+
+    const index = +player.sunkShips() - 1;
+    const divs = container.children;
+    const div = [...divs][index];
+    div.src = BrownShip;
+  };
+
+  const displayRestartButton = () => {
+    const button = document.getElementById('restart');
+    button.classList.remove('hide');
+    button.addEventListener(
+      'click',
+      () => {
+        location.reload();
+      },
+      false,
+    );
+  };
+
+  return {
+    displayBoard,
+    displayShips,
+    addClassToDiv,
+    cleanBoard,
+    displayMessage,
+    displayStats,
+    displayShipIcons,
+    updateShipIcons,
+    displayRestartButton,
+  };
 })();
 
 export default DOMModule;

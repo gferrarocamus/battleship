@@ -40,7 +40,7 @@ test('board can receive attack on a ship', () => {
     cells: [],
     length: 4,
     isHorizontal: true,
-    hit: jest.fn()
+    hit: jest.fn(),
   };
   gameboard.placeShip(ship, [0, 0]);
   expect(gameboard.receiveAttack(0, 0)).toBe(true);
@@ -58,17 +58,13 @@ test('all ships are sunk', () => {
     cells: [],
     length: 1,
     isHorizontal: true,
-    isSunk: jest.fn(() =>{
-      return true;
-    })
+    isSunk: jest.fn(() => true),
   };
   const ship2 = {
     cells: [],
     length: 1,
     isHorizontal: true,
-    isSunk: jest.fn(() =>{
-      return true;
-    })
+    isSunk: jest.fn(() => true),
   };
   gameboard.placeShip(ship1, [0, 0]);
   gameboard.placeShip(ship2, [3, 7]);
@@ -81,17 +77,13 @@ test('not all ships are sunk', () => {
     cells: [],
     length: 1,
     isHorizontal: true,
-    isSunk: jest.fn(() =>{
-      return true;
-    })
+    isSunk: jest.fn(() => true),
   };
   const ship2 = {
     cells: [],
     length: 1,
     isHorizontal: true,
-    isSunk: jest.fn(() =>{
-      return false;
-    })
+    isSunk: jest.fn(() => false),
   };
   gameboard.placeShip(ship1, [0, 0]);
   gameboard.placeShip(ship2, [3, 7]);

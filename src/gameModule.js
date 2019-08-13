@@ -11,7 +11,7 @@ const gameModule = (() => {
     let count2 = 0;
     let count3 = 0;
     let count4 = 0;
-    let placedShips = [];
+    const placedShips = [];
 
     while (count1 < 4) {
       const ship = shipFactory(1, true);
@@ -52,27 +52,24 @@ const gameModule = (() => {
   };
 
   const checkForWin = (player, computer) => {
+    const playerShipResults = document.getElementById('playerShipResults');
+    const computerShipResults = document.getElementById('computerShipResults');
+    DOMModule.updateShipIcons(playerShipResults, player);
+    DOMModule.updateShipIcons(computerShipResults, computer);
+
     if (player.board.allSunk() || computer.board.allSunk()) {
       player.active = false;
       computer.active = false;
-      if (computer.board.allSunk()) {
-        DOMModule.displayMessage('Human Player Wins!');
-      } else {
-        DOMModule.displayMessage('Computer Wins!');
-      }
-      const button = document.getElementById('restart');
-      button.classList.remove('hide');
-      button.addEventListener(
-        'click',
-        () => {
-          location.reload();
-        },
-        false
-      );
+      const msg = computer.board.allSunk() ? 'Human Player Wins!' : 'The Machine Wins!';
+      DOMModule.displayMessage(msg);
+      const playerStats = document.getElementById('playerStats');
+      const computerStats = document.getElementById('computerStats');
+      DOMModule.displayStats(playerStats, player);
+      DOMModule.displayStats(computerStats, computer);
+      DOMModule.displayRestartButton();
       return true;
-    } else {
-      return false;
     }
+    return false;
   };
 
   const attack = (attacker, opponent, row, col, div) => {
@@ -88,7 +85,8 @@ const gameModule = (() => {
   };
 
   const computerMove = (player, computer) => {
-    let row, col;
+    let row;
+    let col;
     let validMove = false;
 
     while (!validMove) {
@@ -96,7 +94,7 @@ const gameModule = (() => {
       row = coordinates[0];
       col = coordinates[1];
       const pastMovesIndex = computer.pastMoves.findIndex(
-        (arr) => arr[0] === row && arr[1] === col
+        (arr) => arr[0] === row && arr[1] === col,
       );
       if (pastMovesIndex === -1) validMove = true;
     }
@@ -117,10 +115,10 @@ const gameModule = (() => {
     const computerBoard = gameboardFactory();
     const playerShips = initializeBoard(playerBoard);
     const computerShips = initializeBoard(computerBoard);
-    const player = playerFactory(true, playerBoard, null);
-    const computer = playerFactory(false, computerBoard, []);
+    const player = playerFactory(true, playerBoard, playerShips);
+    const computer = playerFactory(false, computerBoard, computerShips);
     DOMModule.displayBoard(playerBoardDiv, player.board.matrix);
-    DOMModule.displayBoard(computerBoardDiv, null);
+    DOMModule.displayBoard(computerBoardDiv);
     DOMModule.displayShips(playerShips);
 
     const callback = (e) => {
