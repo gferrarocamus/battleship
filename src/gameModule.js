@@ -86,6 +86,7 @@ const gameModule = (() => {
   };
 
   const computerMove = (player, computer) => {
+    console.log("computer")
     const coordinates = computer.AI.getCoordinates();
     let row = coordinates[0];
     let col = coordinates[1];
