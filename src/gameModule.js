@@ -55,28 +55,20 @@ const gameModule = (() => {
     if (player.board.allSunk() || computer.board.allSunk()) {
       player.active = false;
       computer.active = false;
-      if (computer.board.allSunk()) {
-        DOMModule.displayMessage('Human Player Wins!');
-      } else {
-        DOMModule.displayMessage('Computer Wins!');
-      }
+      const msg = computer.board.allSunk() ? 'Human Player Wins!' : 'The Machine Wins!';
+      DOMModule.displayMessage(msg);
       const playerStats = document.getElementById('playerStats');
       const computerStats = document.getElementById('computerStats');
       DOMModule.displayStats(playerStats, player);
       DOMModule.displayStats(computerStats, computer);
-      const button = document.getElementById('restart');
-      button.classList.remove('hide');
-      button.addEventListener(
-        'click',
-        () => {
-          location.reload();
-        },
-        false
-      );
+      const playerShipResults = document.getElementById('playerShipResults');
+      const computerShipResults = document.getElementById('computerShipResults');
+      DOMModule.displayShipResults(playerShipResults, player);
+      DOMModule.displayShipResults(computerShipResults, computer);
+      DOMModule.displayRestartButton();
       return true;
-    } else {
-      return false;
     }
+    return false;
   };
 
   const attack = (attacker, opponent, row, col, div) => {

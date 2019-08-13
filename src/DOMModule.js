@@ -1,3 +1,6 @@
+import BlackShip from './img/ship-black.svg';
+import BrownShip from './img/ship-brown.svg';
+
 const DOMModule = (() => {
   const displayBoard = (parent, matrix) => {
     for (let i = 0; i < 10; i++) {
@@ -54,9 +57,47 @@ const DOMModule = (() => {
   const displayMessage = (msg) => {
     const message = document.getElementById('message');
     message.textContent = msg;
+  };
+
+  const displayShipResults = (container, player) => {
+    const sunk = +player.sunkShips();
+    const missed = 10 - sunk;
+    for (let i = 0; i < sunk; i++) {
+      const ship = new Image();
+      ship.src = BrownShip;
+      ship.classList.add('shipIcon');
+      container.appendChild(ship);
+    }
+    for (let i = 0; i < missed; i++) {
+      const ship = new Image();
+      ship.src = BlackShip;
+      ship.classList.add('shipIcon');
+      container.appendChild(ship);
+    }
+  };
+
+  const displayRestartButton = () => {
+    const button = document.getElementById('restart');
+    button.classList.remove('hide');
+    button.addEventListener(
+      'click',
+      () => {
+        location.reload();
+      },
+      false,
+    );
   }
 
-  return { displayBoard, displayShips, addClassToDiv, cleanBoard, displayMessage, displayStats };
+  return { 
+    displayBoard,
+    displayShips,
+    addClassToDiv,
+    cleanBoard,
+    displayMessage,
+    displayStats,
+    displayShipResults,
+    displayRestartButton,
+  };
 })();
 
 export default DOMModule;

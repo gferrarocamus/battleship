@@ -1,20 +1,24 @@
 @import url('https://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700,900|Poppins:400,500,700&display=swap');
 
 :root {
-  --lime: #a4e868;
-  --green: #41ae5f;
-  --tile: #81ccb8;
+  --tile: rgba(129, 204, 184, 0.7);
+  --solid-tile: rgb(129, 204, 184);
+  --bright-purple: #9776a8;
+  --dark-purple: #7d6498;
   --lilac: #8597cb;
-  --marine: #28567f;
-  --light-blue: #d1e8f9;
-  --bright-blue: #0096e7;
   --water: #67b9cc;
+  --marine: #28567f;
+  --bright-blue: #0096e7;
+  --light-blue: #d1e8f9;
   --light-gray: #e6e7e8;
   --middle-gray: #bdc3c7;
   --dark-gray: #95a5a5;
   --slate: #546a78;
   --pink: #d75e71;
   --orange: #f29d37;
+  --lime: #a4e868;
+  --green: #41ae5f;
+  --leaf: #31a185;
 }
 
 html {
@@ -151,18 +155,21 @@ h4 {
   background-color: var(--slate);
   border: 2px solid black;
   color: var(--light-gray);
+  box-shadow: 5px 5px var(--bright-blue);
 }
 
 #play {
   position: absolute;
   top: calc(50% - 15px);
   left: calc(50% - 75px);
+  box-shadow: 5px 5px var(--dark-purple);
 }
 
 #restart {
   margin: 0 auto 50px;
   width: 150px;
   background-color: var(--marine);
+  box-shadow: 5px 5px var(--lilac);
 }
 
 .inactive {
@@ -174,8 +181,18 @@ h4 {
   display: none;
 }
 
+.shipResults {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shipIcon {
+  width: 16px;
+}
+
 @media (max-width: 880px) {
-  #randomize {
+  .board-container:first-child {
     margin-bottom: 45px;
   }
 
