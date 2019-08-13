@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/1ba1/battleship.git"
+    "url": "git+https://github.com/gferrarocamus/battleship.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/1ba1/battleship/issues"
+    "url": "https://github.com/gferrarocamus/battleship/issues"
   },
-  "homepage": "https://github.com/1ba1/battleship#readme",
+  "homepage": "https://github.com/gferrarocamus/battleship#readme",
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "clean-webpack-plugin": "^3.0.0",

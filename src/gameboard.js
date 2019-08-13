@@ -1,5 +1,5 @@
 const gameboardFactory = () => {
-  let matrix = [];
+  const matrix = [];
   matrix.length = 10;
   for (let n = 0; n < 10; n++) {
     matrix[n] = new Array(10).fill(' ');
@@ -7,11 +7,10 @@ const gameboardFactory = () => {
 
   const validCoordinates = (l, isHorizontal, coordinates) => {
     if (
-      matrix[coordinates[0]][coordinates[1]] !== ' ' ||
-      (isHorizontal && coordinates[1] + l > 10) ||
-      (!isHorizontal && coordinates[0] + l > 10)
-    )
-      return false;
+      matrix[coordinates[0]][coordinates[1]] !== ' '
+      || (isHorizontal && coordinates[1] + l > 10)
+      || (!isHorizontal && coordinates[0] + l > 10)
+    ) return false;
 
     const row = coordinates[0];
     const col = coordinates[1];
@@ -21,7 +20,8 @@ const gameboardFactory = () => {
     let colStart = col - 1;
     if (col === 0) colStart = 0;
 
-    let rowEnd, colEnd;
+    let rowEnd; let
+      colEnd;
 
     if (isHorizontal) {
       rowEnd = row + 2;
@@ -49,7 +49,7 @@ const gameboardFactory = () => {
     }
 
     if (ship.isHorizontal) {
-      let row = coordinates[0];
+      const row = coordinates[0];
       for (
         let i = coordinates[1], count = 0;
         i < coordinates[1] + ship.length;
@@ -59,7 +59,7 @@ const gameboardFactory = () => {
         matrix[row][i] = ship;
       }
     } else {
-      let col = coordinates[1];
+      const col = coordinates[1];
       for (
         let i = coordinates[0], count = 0;
         i < coordinates[0] + ship.length;
@@ -76,19 +76,17 @@ const gameboardFactory = () => {
     if (matrix[x][y] === ' ') {
       matrix[x][y] = 'M';
       return false;
-    } else {
-      const s = matrix[x][y];
-      const i = s.cells.findIndex((arr) => arr[0] === x && arr[1] === y);
-      s.hit(i);
-      return true;
     }
+    const s = matrix[x][y];
+    const i = s.cells.findIndex((arr) => arr[0] === x && arr[1] === y);
+    s.hit(i);
+    return true;
   };
 
   const allSunk = () => {
     for (let i = 0; i < matrix.length; i++) {
       for (let j = 0; j < matrix.length; j++) {
-        if (typeof matrix[i][j] === 'object' && !matrix[i][j].isSunk())
-          return false;
+        if (typeof matrix[i][j] === 'object' && !matrix[i][j].isSunk()) return false;
       }
     }
     return true;

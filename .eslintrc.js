@@ -15,5 +15,8 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    "no-plusplus": 0,
+    "no-restricted-globals": 0,
+    "no-param-reassign": 0,
   },
 };

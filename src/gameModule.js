@@ -11,7 +11,7 @@ const gameModule = (() => {
     let count2 = 0;
     let count3 = 0;
     let count4 = 0;
-    let placedShips = [];
+    const placedShips = [];
 
     while (count1 < 4) {
       const ship = shipFactory(1, true);
@@ -52,6 +52,11 @@ const gameModule = (() => {
   };
 
   const checkForWin = (player, computer) => {
+    const playerShipResults = document.getElementById('playerShipResults');
+    const computerShipResults = document.getElementById('computerShipResults');
+    DOMModule.updateShipIcons(playerShipResults, player);
+    DOMModule.updateShipIcons(computerShipResults, computer);
+
     if (player.board.allSunk() || computer.board.allSunk()) {
       player.active = false;
       computer.active = false;
@@ -61,10 +66,6 @@ const gameModule = (() => {
       const computerStats = document.getElementById('computerStats');
       DOMModule.displayStats(playerStats, player);
       DOMModule.displayStats(computerStats, computer);
-      const playerShipResults = document.getElementById('playerShipResults');
-      const computerShipResults = document.getElementById('computerShipResults');
-      DOMModule.displayShipResults(playerShipResults, player);
-      DOMModule.displayShipResults(computerShipResults, computer);
       DOMModule.displayRestartButton();
       return true;
     }
@@ -73,7 +74,7 @@ const gameModule = (() => {
 
   const attack = (attacker, opponent, row, col, div) => {
     if (!attacker.active) return;
-    
+
     const result = opponent.board.receiveAttack(row, col) ? 'hit' : 'miss';
     DOMModule.addClassToDiv(div, result);
     if (result === 'miss') {
@@ -84,7 +85,8 @@ const gameModule = (() => {
   };
 
   const computerMove = (player, computer) => {
-    let row, col;
+    let row;
+    let col;
     let validMove = false;
 
     while (!validMove) {
@@ -92,7 +94,7 @@ const gameModule = (() => {
       row = coordinates[0];
       col = coordinates[1];
       const pastMovesIndex = computer.pastMoves.findIndex(
-        (arr) => arr[0] === row && arr[1] === col
+        (arr) => arr[0] === row && arr[1] === col,
       );
       if (pastMovesIndex === -1) validMove = true;
     }

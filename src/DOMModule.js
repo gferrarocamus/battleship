@@ -30,7 +30,7 @@ const DOMModule = (() => {
     ships.forEach((ship) => {
       for (let i = 0; i < ship.cells.length; i++) {
         const div = document.getElementById(
-          `${ship.cells[i][0]}${ship.cells[i][1]}`
+          `${ship.cells[i][0]}${ship.cells[i][1]}`,
         );
         if (i === 0) div.classList.add('first-cell');
         if (i === ship.cells.length - 1) div.classList.add('last-cell');
@@ -59,21 +59,22 @@ const DOMModule = (() => {
     message.textContent = msg;
   };
 
-  const displayShipResults = (container, player) => {
-    const sunk = +player.sunkShips();
-    const missed = 10 - sunk;
-    for (let i = 0; i < sunk; i++) {
-      const ship = new Image();
-      ship.src = BrownShip;
-      ship.classList.add('shipIcon');
-      container.appendChild(ship);
-    }
-    for (let i = 0; i < missed; i++) {
+  const displayShipIcons = (container) => {
+    for (let i = 0; i < 10; i++) {
       const ship = new Image();
       ship.src = BlackShip;
       ship.classList.add('shipIcon');
       container.appendChild(ship);
     }
+  };
+
+  const updateShipIcons = (container, player) => {
+    if (+player.sunkShips() < 1) return;
+
+    const index = +player.sunkShips() - 1;
+    const divs = container.children;
+    const div = [...divs][index];
+    div.src = BrownShip;
   };
 
   const displayRestartButton = () => {
@@ -86,16 +87,17 @@ const DOMModule = (() => {
       },
       false,
     );
-  }
+  };
 
-  return { 
+  return {
     displayBoard,
     displayShips,
     addClassToDiv,
     cleanBoard,
     displayMessage,
     displayStats,
-    displayShipResults,
+    displayShipIcons,
+    updateShipIcons,
     displayRestartButton,
   };
 })();

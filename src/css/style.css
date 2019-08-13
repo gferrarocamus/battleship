@@ -160,7 +160,7 @@ h4 {
 
 #play {
   position: absolute;
-  top: calc(50% - 15px);
+  top: calc(50% - 29.5px);
   left: calc(50% - 75px);
   box-shadow: 5px 5px var(--dark-purple);
 }
@@ -181,23 +181,38 @@ h4 {
   display: none;
 }
 
+.relative {
+  position: relative;
+}
+
+#playerStats,
+#computerStats {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
 .shipResults {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-top: 20px;
 }
 
 .shipIcon {
-  width: 16px;
+  width: 26px;
 }
 
 @media (max-width: 880px) {
   .board-container:first-child {
-    margin-bottom: 45px;
+    margin-bottom: 50px;
   }
 
   .board {
     width: 300px;
     height: 300px;
+  }
+
+  .shipIcon {
+    width: 22px;
   }
 }

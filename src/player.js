@@ -5,8 +5,10 @@ const playerFactory = (active, board, placedShips, pastMoves) => {
       if (typeof placedShips[i] === 'object' && placedShips[i].isSunk()) n++;
     }
     return n;
-  }
-  return { active, board, placedShips, pastMoves, sunkShips };
+  };
+  return {
+    active, board, placedShips, pastMoves, sunkShips,
+  };
 };
 
 export default playerFactory;
