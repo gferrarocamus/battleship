@@ -84,26 +84,66 @@ const gameModule = (() => {
     return result;
   };
 
+  const validMove = (computer, row, col) => {
+    const pastMovesIndex = computer.pastMoves.findIndex(
+      (arr) => arr[0] === row && arr[1] === col,
+    );
+    if (pastMovesIndex === -1) return true;
+    return false;
+  };
+
+  const followUpCoordinates = (computer) => {
+    if (computer.lastHit === null) return null;
+
+    const row = computer.lastHit[0];
+    const col = computer.lastHit[1];
+    const possibleRows = [row + 1, row - 1].filter(
+      (candidate) => candidate > -1 && candidate < 10,
+    );
+    const possibleCols = [col + 1, col - 1].filter(
+      (candidate) => candidate > -1 && candidate < 10,
+    );
+
+    for (let i = 0; i < possibleRows.length; i++) {
+      if (validMove(computer, possibleRows[i], col)) {
+        return [possibleRows[i], col];
+      }
+    }
+    for (let j = 0; j < possibleCols.length; j++) {
+      if (validMove(computer, row, possibleCols[j])) {
+        return [row, possibleCols[j]];
+      }
+    }
+    return null;
+  };
+
   const computerMove = (player, computer) => {
     let row;
     let col;
-    let validMove = false;
+    let valid = false;
+    const followUp = followUpCoordinates(computer);
 
-    while (!validMove) {
-      const coordinates = randomCoordinates();
-      row = coordinates[0];
-      col = coordinates[1];
-      const pastMovesIndex = computer.pastMoves.findIndex(
-        (arr) => arr[0] === row && arr[1] === col,
-      );
-      if (pastMovesIndex === -1) validMove = true;
+    if (followUp === null) {
+      computer.lastHit = null;
+      while (!valid) {
+        const coordinates = randomCoordinates();
+        row = coordinates[0];
+        col = coordinates[1];
+        valid = validMove(computer, row, col);
+      }
+    } else {
+      console.log(followUp)
+      row = followUp[0];
+      col = followUp[1];
     }
-
-    computer.pastMoves.push([row, col]);
 
     const div = document.getElementById(`${row}${col}`);
 
-    attack(computer, player, row, col, div);
+    const result = attack(computer, player, row, col, div);
+
+    computer.lastHit = result === 'hit' ? [row, col] : computer.lastHit;
+
+    computer.pastMoves.push([row, col]);
 
     checkForWin(player, computer);
   };
@@ -145,3 +185,18 @@ const gameModule = (() => {
 })();
 
 export default gameModule;
+
+// export const followUpCoordinates = (row, col) => {
+//   const possibleRows = [row + 1, row - 1].filter(
+//     (candidate) => candidate > -1 && candidate < 10,
+//   );
+//   const possibleCols = [col + 1, col - 1].filter(
+//     (candidate) => candidate > -1 && candidate < 10,
+//   );
+//   const switchRow = randomBoolean();
+//   const rowIndex = Math.round(Math.random() * possibleRows.length - 1);
+//   const colIndex = Math.round(Math.random() * possibleCols.length - 1);
+//   const x = switchRow ? possibleRows[rowIndex] : row;
+//   const y = switchRow ? col : possibleCols[colIndex];
+//   return [x, y];
+// };
