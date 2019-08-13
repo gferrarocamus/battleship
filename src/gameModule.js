@@ -2,6 +2,7 @@ import shipFactory from './ship';
 import playerFactory from './player';
 import gameboardFactory from './gameboard';
 import DOMModule from './DOMModule';
+import AI from './AI';
 import { randomBoolean, randomCoordinates } from './utilities';
 import './css/style.css';
 
@@ -84,66 +85,20 @@ const gameModule = (() => {
     return result;
   };
 
-  const validMove = (computer, row, col) => {
-    const pastMovesIndex = computer.pastMoves.findIndex(
-      (arr) => arr[0] === row && arr[1] === col,
-    );
-    if (pastMovesIndex === -1) return true;
-    return false;
-  };
-
-  const followUpCoordinates = (computer) => {
-    if (computer.lastHit === null) return null;
-
-    const row = computer.lastHit[0];
-    const col = computer.lastHit[1];
-    const possibleRows = [row + 1, row - 1].filter(
-      (candidate) => candidate > -1 && candidate < 10,
-    );
-    const possibleCols = [col + 1, col - 1].filter(
-      (candidate) => candidate > -1 && candidate < 10,
-    );
-
-    for (let i = 0; i < possibleRows.length; i++) {
-      if (validMove(computer, possibleRows[i], col)) {
-        return [possibleRows[i], col];
-      }
-    }
-    for (let j = 0; j < possibleCols.length; j++) {
-      if (validMove(computer, row, possibleCols[j])) {
-        return [row, possibleCols[j]];
-      }
-    }
-    return null;
-  };
-
   const computerMove = (player, computer) => {
-    let row;
-    let col;
-    let valid = false;
-    const followUp = followUpCoordinates(computer);
-
-    if (followUp === null) {
-      computer.lastHit = null;
-      while (!valid) {
-        const coordinates = randomCoordinates();
-        row = coordinates[0];
-        col = coordinates[1];
-        valid = validMove(computer, row, col);
-      }
-    } else {
-      console.log(followUp)
-      row = followUp[0];
-      col = followUp[1];
-    }
+    const coordinates = computer.AI.getCoordinates();
+    let row = coordinates[0];
+    let col = coordinates[1];
 
     const div = document.getElementById(`${row}${col}`);
 
     const result = attack(computer, player, row, col, div);
 
-    computer.lastHit = result === 'hit' ? [row, col] : computer.lastHit;
+    computer.AI.pastMoves.push(coordinates);
 
-    computer.pastMoves.push([row, col]);
+    //learning
+    // if (result === 'hit') computer.AI.targetData.coordinates.push(coordinates);
+    computer.AI.learn(coordinates, result);
 
     checkForWin(player, computer);
   };
@@ -156,7 +111,7 @@ const gameModule = (() => {
     const playerShips = initializeBoard(playerBoard);
     const computerShips = initializeBoard(computerBoard);
     const player = playerFactory(true, playerBoard, playerShips);
-    const computer = playerFactory(false, computerBoard, computerShips);
+    const computer = playerFactory(false, computerBoard, computerShips, AI());
     DOMModule.displayBoard(playerBoardDiv, player.board.matrix);
     DOMModule.displayBoard(computerBoardDiv);
     DOMModule.displayShips(playerShips);

@@ -1,4 +1,4 @@
-const playerFactory = (active, board, placedShips = null, lastHit = null, pastMoves = []) => {
+const playerFactory = (active, board, placedShips = null, AI = null) => {
   const sunkShips = () => {
     if (placedShips === null) return placedShips;
 
@@ -9,7 +9,7 @@ const playerFactory = (active, board, placedShips = null, lastHit = null, pastMo
     return n;
   };
   return {
-    active, board, placedShips, lastHit, pastMoves, sunkShips,
+    active, board, placedShips, AI, sunkShips,
   };
 };
 
