@@ -86,10 +86,11 @@ const gameModule = (() => {
   };
 
   const computerMove = (player, computer) => {
-    console.log("computer")
+    console.log('computer');
     const coordinates = computer.AI.getCoordinates();
-    let row = coordinates[0];
-    let col = coordinates[1];
+    console.log(coordinates);
+    const row = coordinates[0];
+    const col = coordinates[1];
 
     const div = document.getElementById(`${row}${col}`);
 
@@ -97,8 +98,6 @@ const gameModule = (() => {
 
     computer.AI.pastMoves.push(coordinates);
 
-    //learning
-    // if (result === 'hit') computer.AI.targetData.coordinates.push(coordinates);
     computer.AI.learn(coordinates, result);
 
     checkForWin(player, computer);

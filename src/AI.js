@@ -1,10 +1,4 @@
-import { randomCoordinates } from './utilities';
-
-const blankData = () => ({
-  coordinates: [],
-  isHorizontal: null,
-  isSunk: false,
-});
+import { randomCoordinates, blankData } from './utilities';
 
 const AI = (targetData = blankData(), pastMoves = []) => {
   const validMove = (row, col) => {
@@ -20,7 +14,7 @@ const AI = (targetData = blankData(), pastMoves = []) => {
   );
 
   const followUpCoordinates = () => {
-    if (targetData.coordinates.length === 0) return null;
+    // if (targetData.coordinates.length === 0) return null;
 
     const pair = [...targetData.coordinates].pop();
     const row = pair[0];
@@ -58,7 +52,7 @@ const AI = (targetData = blankData(), pastMoves = []) => {
       }
     }
 
-    return false;
+    return -1;
   };
 
   const validRandomCoordinates = () => {
@@ -69,13 +63,19 @@ const AI = (targetData = blankData(), pastMoves = []) => {
   };
 
   const getCoordinates = () => {
-    // console.log(targetData.coordinates)
-    // console.log(targetData.isHorizontal)
+    if (targetData.coordinates.length === 0) return validRandomCoordinates();
 
-    const followUp = followUpCoordinates();
-    if (followUp === null || followUp === false) {
-      console.log(targetData.coordinates.length)
-      // targetData = { ...initialTargetData };
+    let followUp = followUpCoordinates();
+    
+    console.log(targetData.coordinates)
+    console.log(followUp)
+    
+    if (followUp === -1) {
+      targetData.coordinates = targetData.coordinates.slice(0, 1);
+      followUp = followUpCoordinates();
+    }
+    if (followUp === false || followUp === -1) {
+      console.log("false")
       targetData = blankData();
       return validRandomCoordinates();
     }
@@ -86,24 +86,22 @@ const AI = (targetData = blankData(), pastMoves = []) => {
     const prevCoordinates = [...targetData.coordinates].pop() || null;
     if (prevCoordinates !== null) {
       if (targetData.isHorizontal === null && result === 'hit') {
-        //find out if it's horizontal
+        // find out if it's horizontal
         if (coordinates[0] === prevCoordinates[0]) {
           targetData.isHorizontal = true;
         } else if (coordinates[1] === prevCoordinates[1]) {
           targetData.isHorizontal = false;
         }
       } else if (targetData.isHorizontal !== null && result === 'miss') {
-        //find out if it's sunk
-        console.log("else");
+        // go back to the first hit
         targetData.coordinates = targetData.coordinates.slice(0, 1);
-        // targetData.isSunk = true;
       }
     }
     if (result === 'hit') targetData.coordinates.push(coordinates);
+    if (targetData.coordinates.length >= 4) targetData = blankData();
   };
 
   return {
-    targetData,
     pastMoves,
     getCoordinates,
     learn,
