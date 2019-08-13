@@ -115,10 +115,10 @@ const gameModule = (() => {
     const computerBoard = gameboardFactory();
     const playerShips = initializeBoard(playerBoard);
     const computerShips = initializeBoard(computerBoard);
-    const player = playerFactory(true, playerBoard, playerShips, null);
-    const computer = playerFactory(false, computerBoard, computerShips, []);
+    const player = playerFactory(true, playerBoard, playerShips);
+    const computer = playerFactory(false, computerBoard, computerShips);
     DOMModule.displayBoard(playerBoardDiv, player.board.matrix);
-    DOMModule.displayBoard(computerBoardDiv, null);
+    DOMModule.displayBoard(computerBoardDiv);
     DOMModule.displayShips(playerShips);
 
     const callback = (e) => {

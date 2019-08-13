@@ -2,7 +2,7 @@ import BlackShip from './img/ship-black.svg';
 import BrownShip from './img/ship-brown.svg';
 
 const DOMModule = (() => {
-  const displayBoard = (parent, matrix) => {
+  const displayBoard = (parent, matrix = null) => {
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
         const div = document.createElement('div');
