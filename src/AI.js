@@ -13,46 +13,47 @@ const AI = (targetData = blankData(), pastMoves = []) => {
     (candidate) => candidate > -1 && candidate < 10,
   );
 
-  const followUpCoordinates = () => {
-    // if (targetData.coordinates.length === 0) return null;
+  const horizontalCheck = (row, col) => {
+    const possibleCols = possibleCoordinates(col);
+    for (let j = 0; j < possibleCols.length; j++) {
+      if (validMove(row, possibleCols[j])) {
+        return [row, possibleCols[j]];
+      }
+    }
+    return false;
+  };
 
+  const verticalCheck = (row, col) => {
+    const possibleRows = possibleCoordinates(row);
+    for (let i = 0; i < possibleRows.length; i++) {
+      if (validMove(possibleRows[i], col)) {
+        return [possibleRows[i], col];
+      }
+    }
+    return false;
+  };
+
+  const followUpCoordinates = (retry = true) => {
     const pair = [...targetData.coordinates].pop();
     const row = pair[0];
     const col = pair[1];
 
     if (targetData.isHorizontal === null) {
-      const possibleCols = possibleCoordinates(col);
-      for (let j = 0; j < possibleCols.length; j++) {
-        if (validMove(row, possibleCols[j])) {
-          return [row, possibleCols[j]];
-        }
-      }
-      const possibleRows = possibleCoordinates(row);
-      for (let i = 0; i < possibleRows.length; i++) {
-        if (validMove(possibleRows[i], col)) {
-          return [possibleRows[i], col];
-        }
-      }
-      return false;
+      return horizontalCheck(row, col) || verticalCheck(row, col);
     }
 
+    let result;
     if (targetData.isHorizontal) {
-      const possibleCols = possibleCoordinates(col);
-      for (let j = 0; j < possibleCols.length; j++) {
-        if (validMove(row, possibleCols[j])) {
-          return [row, possibleCols[j]];
-        }
-      }
+      result = horizontalCheck(row, col) || -1;
     } else {
-      const possibleRows = possibleCoordinates(row);
-      for (let i = 0; i < possibleRows.length; i++) {
-        if (validMove(possibleRows[i], col)) {
-          return [possibleRows[i], col];
-        }
-      }
+      result = verticalCheck(row, col) || -1;
     }
 
-    return -1;
+    if (result === -1 && retry) {
+      targetData.coordinates = targetData.coordinates.slice(0, 1);
+      result = followUpCoordinates(false);
+    }
+    return result;
   };
 
   const validRandomCoordinates = () => {
@@ -65,17 +66,8 @@ const AI = (targetData = blankData(), pastMoves = []) => {
   const getCoordinates = () => {
     if (targetData.coordinates.length === 0) return validRandomCoordinates();
 
-    let followUp = followUpCoordinates();
-    
-    console.log(targetData.coordinates)
-    console.log(followUp)
-    
-    if (followUp === -1) {
-      targetData.coordinates = targetData.coordinates.slice(0, 1);
-      followUp = followUpCoordinates();
-    }
+    const followUp = followUpCoordinates();
     if (followUp === false || followUp === -1) {
-      console.log("false")
       targetData = blankData();
       return validRandomCoordinates();
     }

@@ -86,9 +86,7 @@ const gameModule = (() => {
   };
 
   const computerMove = (player, computer) => {
-    console.log('computer');
     const coordinates = computer.AI.getCoordinates();
-    console.log(coordinates);
     const row = coordinates[0];
     const col = coordinates[1];
 
@@ -140,18 +138,3 @@ const gameModule = (() => {
 })();
 
 export default gameModule;
-
-// export const followUpCoordinates = (row, col) => {
-//   const possibleRows = [row + 1, row - 1].filter(
-//     (candidate) => candidate > -1 && candidate < 10,
-//   );
-//   const possibleCols = [col + 1, col - 1].filter(
-//     (candidate) => candidate > -1 && candidate < 10,
-//   );
-//   const switchRow = randomBoolean();
-//   const rowIndex = Math.round(Math.random() * possibleRows.length - 1);
-//   const colIndex = Math.round(Math.random() * possibleCols.length - 1);
-//   const x = switchRow ? possibleRows[rowIndex] : row;
-//   const y = switchRow ? col : possibleCols[colIndex];
-//   return [x, y];
-// };
