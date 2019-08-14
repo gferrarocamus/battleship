@@ -1,4 +1,4 @@
-import playerFactory from '../src/player';
+import playerFactory from '../src/js/player';
 
 test('sunkShips() returns null after initializing player', () => {
   const player = playerFactory(true, {});

@@ -1,4 +1,4 @@
-import gameboardFactory from '../src/gameboard';
+import gameboardFactory from '../src/js/gameboard';
 
 test('board can place ships', () => {
   const gameboard = gameboardFactory();
