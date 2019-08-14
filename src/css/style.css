@@ -259,9 +259,34 @@ h4 {
   width: 26px;
 }
 
-#playerBoard .gameOver,
 #computerBoard .gameOver {
   background-color: var(--leaf);
+}
+
+.playerBoard.ship.horizontal.gameOver {
+  border-top: 2px solid var(--leaf);
+  border-bottom: 2px solid var(--leaf);
+}
+
+.playerBoard.ship.vertical.gameOver {
+  border-right: 2px solid var(--leaf);
+  border-left: 2px solid var(--leaf);
+}
+
+.playerBoard.ship.first-cell.horizontal.gameOver {
+  border-left: 2px solid var(--leaf);
+}
+
+.playerBoard.ship.last-cell.horizontal.gameOver {
+  border-right: 2px solid var(--leaf);
+}
+
+.playerBoard.ship.first-cell.vertical.gameOver {
+  border-top: 2px solid var(--leaf);
+}
+
+.playerBoard.ship.last-cell.vertical.gameOver {
+  border-bottom: 2px solid var(--leaf);
 }
 
 @media (max-width: 880px) {
