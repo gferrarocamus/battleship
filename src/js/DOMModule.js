@@ -1,5 +1,5 @@
-import BlackShip from './img/ship-black.svg';
-import BrownShip from './img/ship-brown.svg';
+import BlackShip from '../img/ship-black.svg';
+import BrownShip from '../img/ship-brown.svg';
 
 const DOMModule = (() => {
   const displayBoard = (parent, matrix = null) => {

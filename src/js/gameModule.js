@@ -4,7 +4,7 @@ import gameboardFactory from './gameboard';
 import DOMModule from './DOMModule';
 import AI from './AI';
 import { randomBoolean, randomCoordinates } from './utilities';
-import './css/style.css';
+import '../css/style.css';
 
 const gameModule = (() => {
   const initializeBoard = (board) => {
