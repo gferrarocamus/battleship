@@ -33,6 +33,8 @@ const AI = (targetData = blankData(), pastMoves = []) => {
     return false;
   };
 
+  const backtrackCoordinates = () => targetData.coordinates.slice(0, 1);
+
   const followUpCoordinates = (retry = true) => {
     const pair = [...targetData.coordinates].pop();
     const row = pair[0];
@@ -50,7 +52,7 @@ const AI = (targetData = blankData(), pastMoves = []) => {
     }
 
     if (result === -1 && retry) {
-      targetData.coordinates = targetData.coordinates.slice(0, 1);
+      targetData.coordinates = backtrackCoordinates();
       result = followUpCoordinates(false);
     }
     return result;
@@ -86,7 +88,7 @@ const AI = (targetData = blankData(), pastMoves = []) => {
         }
       } else if (targetData.isHorizontal !== null && result === 'miss') {
         // go back to the first hit
-        targetData.coordinates = targetData.coordinates.slice(0, 1);
+        targetData.coordinates = backtrackCoordinates();
       }
     }
     if (result === 'hit') targetData.coordinates.push(coordinates);

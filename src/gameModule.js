@@ -61,7 +61,7 @@ const gameModule = (() => {
     if (player.board.allSunk() || computer.board.allSunk()) {
       player.active = false;
       computer.active = false;
-      const msg = computer.board.allSunk() ? 'Human Player Wins!' : 'The Machine Wins!';
+      const msg = DOMModule.gameOverMessage(computer.board.allSunk());
       DOMModule.displayMessage(msg);
       const playerStats = document.getElementById('playerStats');
       const computerStats = document.getElementById('computerStats');

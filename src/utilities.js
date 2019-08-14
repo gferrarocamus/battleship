@@ -9,7 +9,6 @@ export const randomBoolean = () => (Math.random() > 0.5);
 export const blankData = () => ({
   coordinates: [],
   isHorizontal: null,
-  isSunk: false,
 });
 
 export default randomCoordinates;

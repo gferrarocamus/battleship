@@ -89,6 +89,11 @@ const DOMModule = (() => {
     );
   };
 
+  const gameOverMessage = (computerLost) => {
+    if (computerLost) return 'Human Player Wins!';
+    return 'The Machine Wins!';
+  };
+
   return {
     displayBoard,
     displayShips,
@@ -99,6 +104,7 @@ const DOMModule = (() => {
     displayShipIcons,
     updateShipIcons,
     displayRestartButton,
+    gameOverMessage,
   };
 })();
 
