@@ -273,3 +273,9 @@ h4 {
     width: 22px;
   }
 }
+
+@media (max-width: 320px) {
+  h1 {
+    font-size: 40px;
+  }
+}
