@@ -9,7 +9,7 @@ randomize.addEventListener(
     DOMModule.cleanBoard('.computerBoard', 'computerBoard');
     gameModule.startGame();
   },
-  false
+  false,
 );
 
 const play = document.getElementById('play');
@@ -22,8 +22,12 @@ play.addEventListener(
     });
     DOMModule.addClassToDiv(randomize, 'hide');
     DOMModule.addClassToDiv(play, 'hide');
+    const playerShipResults = document.getElementById('playerShipResults');
+    const computerShipResults = document.getElementById('computerShipResults');
+    DOMModule.displayShipIcons(playerShipResults);
+    DOMModule.displayShipIcons(computerShipResults);
   },
-  false
+  false,
 );
 
 gameModule.startGame();

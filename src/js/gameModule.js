@@ -2,8 +2,9 @@ import shipFactory from './ship';
 import playerFactory from './player';
 import gameboardFactory from './gameboard';
 import DOMModule from './DOMModule';
+import AI from './AI';
 import { randomBoolean, randomCoordinates } from './utilities';
-import './css/style.css';
+import '../css/style.css';
 
 const gameModule = (() => {
   const initializeBoard = (board) => {
@@ -11,7 +12,7 @@ const gameModule = (() => {
     let count2 = 0;
     let count3 = 0;
     let count4 = 0;
-    let placedShips = [];
+    const placedShips = [];
 
     while (count1 < 4) {
       const ship = shipFactory(1, true);
@@ -52,27 +53,26 @@ const gameModule = (() => {
   };
 
   const checkForWin = (player, computer) => {
+    const playerShipResults = document.getElementById('playerShipResults');
+    const computerShipResults = document.getElementById('computerShipResults');
+    DOMModule.updateShipIcons(playerShipResults, player);
+    DOMModule.updateShipIcons(computerShipResults, computer);
+
     if (player.board.allSunk() || computer.board.allSunk()) {
       player.active = false;
       computer.active = false;
-      if (computer.board.allSunk()) {
-        DOMModule.displayMessage('Human Player Wins!');
-      } else {
-        DOMModule.displayMessage('Computer Wins!');
-      }
-      const button = document.getElementById('restart');
-      button.classList.remove('hide');
-      button.addEventListener(
-        'click',
-        () => {
-          location.reload();
-        },
-        false
-      );
+      const msg = DOMModule.gameOverMessage(computer.board.allSunk());
+      DOMModule.displayMessage(msg);
+      const playerStats = document.getElementById('playerStats');
+      const computerStats = document.getElementById('computerStats');
+      DOMModule.displayStats(playerStats, player);
+      DOMModule.displayStats(computerStats, computer);
+      DOMModule.displayRestartButton();
+      DOMModule.highlightUnsunk(player.placedShips, computer.placedShips);
+
       return true;
-    } else {
-      return false;
     }
+    return false;
   };
 
   const attack = (attacker, opponent, row, col, div) => {
@@ -88,24 +88,17 @@ const gameModule = (() => {
   };
 
   const computerMove = (player, computer) => {
-    let row, col;
-    let validMove = false;
-
-    while (!validMove) {
-      const coordinates = randomCoordinates();
-      row = coordinates[0];
-      col = coordinates[1];
-      const pastMovesIndex = computer.pastMoves.findIndex(
-        (arr) => arr[0] === row && arr[1] === col
-      );
-      if (pastMovesIndex === -1) validMove = true;
-    }
-
-    computer.pastMoves.push([row, col]);
+    const coordinates = computer.AI.getCoordinates();
+    const row = coordinates[0];
+    const col = coordinates[1];
 
     const div = document.getElementById(`${row}${col}`);
 
-    attack(computer, player, row, col, div);
+    const result = attack(computer, player, row, col, div);
+
+    computer.AI.pastMoves.push(coordinates);
+
+    computer.AI.learn(coordinates, result);
 
     checkForWin(player, computer);
   };
@@ -117,12 +110,11 @@ const gameModule = (() => {
     const computerBoard = gameboardFactory();
     const playerShips = initializeBoard(playerBoard);
     const computerShips = initializeBoard(computerBoard);
-    const player = playerFactory(true, playerBoard, null);
-    const computer = playerFactory(false, computerBoard, []);
+    const player = playerFactory(true, playerBoard, playerShips);
+    const computer = playerFactory(false, computerBoard, computerShips, AI());
     DOMModule.displayBoard(playerBoardDiv, player.board.matrix);
-    DOMModule.displayBoard(computerBoardDiv, null);
+    DOMModule.displayBoard(computerBoardDiv);
     DOMModule.displayShips(playerShips);
-
     const callback = (e) => {
       const row = e.target.getAttribute('data-index')[0];
       const col = e.target.getAttribute('data-index')[1];

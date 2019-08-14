@@ -1,23 +1,33 @@
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Battleship</title>
-<link rel="shortcut icon" href="favicon.png"></head>
-<body>
-  <h1>Battleship</h1>
-  <div id="message"></div>
-  <button id="restart" class="hide">Play Again</button>
-  <div id="main">
-    <div>
-      <div id="playerBoard"></div>
-      <button id="randomize">Randomize Placement</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Battleship</title>
+  <link rel="shortcut icon" href="favicon.png"></head>
+  <body>
+    <div class="main-container">
+      <h1>Battleship</h1>
+      <div id="message"></div>
+      <button id="restart" class="button hide">Play Again</button>
+      <div id="main">
+        <div class="board-container">
+          <h4>Your Grid</h4>
+          <div id="playerBoard" class="board"></div>
+          <button id="randomize" class="button">Randomize Placement</button>
+          <div id="playerShipResults" class="shipResults"></div>
+          <p id="playerStats"></p>
+        </div>
+        <div class="board-container">
+          <h4>The Machine's Grid</h4>
+          <div class="relative">
+            <div id="computerBoard" class="board"></div>
+            <button id="play" class="button">Play</button>
+          </div>
+          <div id="computerShipResults" class="shipResults"></div>
+          <p id="computerStats"></p>
+        </div>
+      </div>
     </div>
-    <div>
-      <div id="computerBoard"></div>
-      <button id="play">Play</button>
-    </div>
-  </div>
-<script type="text/javascript" src="main.bundle.js"></script></body>
+  <script type="text/javascript" src="main.bundle.js"></script></body>
 </html>

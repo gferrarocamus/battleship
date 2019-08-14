@@ -8,23 +8,33 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/1ba1/battleship.git"
+    "url": "git+https://github.com/gferrarocamus/battleship.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/1ba1/battleship/issues"
+    "url": "https://github.com/gferrarocamus/battleship/issues"
   },
-  "homepage": "https://github.com/1ba1/battleship#readme",
+  "homepage": "https://github.com/gferrarocamus/battleship#readme",
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-preset-es2015": "^6.24.1",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.0.0",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.8.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.35.3",
-    "webpack-cli": "^3.3.5"
+    "webpack-cli": "^3.3.5",
+    "babel-jest": "^24.8.0"
   }
 }

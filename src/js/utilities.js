@@ -4,8 +4,11 @@ export const randomCoordinates = () => {
   return [x, y];
 };
 
-export const randomBoolean = () => {
-  return Math.random() > 0.5 ? true : false;
-};
+export const randomBoolean = () => (Math.random() > 0.5);
+
+export const blankData = () => ({
+  coordinates: [],
+  isHorizontal: null,
+});
 
 export default randomCoordinates;

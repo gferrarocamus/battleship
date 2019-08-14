@@ -1,4 +1,4 @@
-import shipFactory from '../src/ship';
+import shipFactory from '../src/js/ship';
 
 test('ship can get hit', () => {
   const ship = shipFactory(4);

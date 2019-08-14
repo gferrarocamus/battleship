@@ -1,88 +1,187 @@
+@import url('https://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700,900|Poppins:400,500,700&display=swap');
+
+:root {
+  --tile: rgba(129, 204, 184, 0.7);
+  --solid-tile: rgb(129, 204, 184);
+  --bright-purple: #9776a8;
+  --dark-purple: #7d6498;
+  --lilac: #8597cb;
+  --water: #67b9cc;
+  --marine: #28567f;
+  --bright-blue: #0096e7;
+  --light-blue: #d1e8f9;
+  --light-gray: #e6e7e8;
+  --middle-gray: #bdc3c7;
+  --dark-gray: #95a5a5;
+  --slate: #546a78;
+  --pink: #d75e71;
+  --orange: #f29d37;
+  --lime: #a4e868;
+  --green: #41ae5f;
+  --leaf: #31a185;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 body {
   text-align: center;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  background-color: var(--tile);
 }
 
 h1 {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 48px;
+  font-weight: 900;
   text-align: center;
-  font-size: 40px;
-  margin-top: 30px;
+  cursor: default;
+  transition: letter-spacing 1s ease-in-out;
+}
+
+h1:hover {
+  letter-spacing: 3;
+}
+
+h4 {
+  font-size: 1.3em;
+  margin-bottom: 20px;
+  margin-top: 0px;
+}
+
+.main-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 50px;
 }
 
 #main {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: flex-start;
   align-content: flex-start;
+  width: 100%;
   max-width: 1000px;
-  margin: 50px auto;
+  margin: 0 auto;
 }
 
-#main > div {
+.board-container {
   position: relative;
   text-align: center;
 }
 
-#playerBoard,
-#computerBoard {
+.board {
+  background-color: var(--slate);
   width: 400px;
   height: 400px;
   display: grid;
   margin-bottom: 20px;
   grid-template-columns: repeat(10, 1fr);
+  grid-gap: 1px;
   box-sizing: border-box;
-  border: 1px solid black;
+  border: 2px solid black;
   position: relative;
 }
 
-div.playerBoard,
-div.computerBoard {
-  border: 1px solid rgba(0, 0, 0, 0.3);
+.playerBoard,
+.computerBoard,
+.computerBoard.inactive {
+  background-color: var(--light-gray);
+}
+
+.playerBoard {
+  transition: background-color 0.5s ease-in-out;
+}
+
+.computerBoard:hover {
+  background-color: var(--middle-gray);
+  cursor: pointer;
 }
 
 .playerBoard.ship {
-  background-color: blue;
+  background-color: var(--marine);
 }
 
 .playerBoard.ship.horizontal {
-  border-top: 2px solid green;
-  border-bottom: 2px solid green;
+  border-top: 2px solid var(--bright-blue);
+  border-bottom: 2px solid var(--bright-blue);
 }
 
 .playerBoard.ship.vertical {
-  border-right: 2px solid green;
-  border-left: 2px solid green;
+  border-right: 2px solid var(--bright-blue);
+  border-left: 2px solid var(--bright-blue);
 }
 
 .playerBoard.ship.first-cell.horizontal {
-  border-left: 2px solid green;
+  border-left: 2px solid var(--bright-blue);
 }
 
 .playerBoard.ship.last-cell.horizontal {
-  border-right: 2px solid green;
+  border-right: 2px solid var(--bright-blue);
 }
 
 .playerBoard.ship.first-cell.vertical {
-  border-top: 2px solid green;
+  border-top: 2px solid var(--bright-blue);
 }
 
 .playerBoard.ship.last-cell.vertical {
-  border-bottom: 2px solid green;
+  border-bottom: 2px solid var(--bright-blue);
+}
+
+.playerBoard.ship.horizontal.hit {
+  border-top: 2px solid brown;
+  border-bottom: 2px solid brown;
+}
+
+.playerBoard.ship.vertical.hit {
+  border-right: 2px solid brown;
+  border-left: 2px solid brown;
+}
+
+.playerBoard.ship.first-cell.horizontal.hit {
+  border-left: 2px solid brown;
+}
+
+.playerBoard.ship.last-cell.horizontal.hit {
+  border-right: 2px solid brown;
+}
+
+.playerBoard.ship.first-cell.vertical.hit {
+  border-top: 2px solid brown;
+}
+
+.playerBoard.ship.last-cell.vertical.hit {
+  border-bottom: 2px solid brown;
 }
 
 .hit,
-.miss {
+.miss,
+.computerBoard.hit,
+.computerBoard.miss {
   pointer-events: none;
 }
 
-.hit {
-  background-color: red;
+.miss,
+.computerBoard.miss,
+.playerBoard.miss {
+  background-color: var(--water);
 }
 
-.miss {
-  background-color: lightblue;
-}
-
+.hit,
+.computerBoard.hit,
 .playerBoard.hit {
   background-color: brown;
 }
@@ -93,29 +192,95 @@ div.computerBoard {
   margin-bottom: 15px;
 }
 
-#restart {
-  padding: 20px;
+.button {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 1em;
+  padding: 15px;
+  min-width: 150px;
+  background-color: var(--slate);
+  border: 2px solid black;
+  color: var(--light-gray);
+  box-shadow: 5px 5px var(--bright-blue);
 }
 
-#randomize,
-#play {
-  padding: 20px;
-  font-size: 20px;
+.button:focus {
+  outline: black;
+}
+
+.button:hover,
+#play:hover,
+#restart:hover {
+  background-color: var(--middle-gray);
+  color: black;
 }
 
 #play {
   position: absolute;
-  width: 200px;
-  top: 40%;
-  left: calc(50% - 100px);
+  top: calc(50% - 29.5px);
+  left: calc(50% - 75px);
+  box-shadow: 5px 5px var(--dark-purple);
+}
+
+#restart {
+  margin: 0 auto 50px;
+  width: 150px;
+  background-color: var(--marine);
+  box-shadow: 5px 5px var(--lilac);
 }
 
 .inactive {
   pointer-events: none;
-  background-color: #eeeeee;
-  opacity: 0.2;
+  opacity: 0.5;
 }
 
 .hide {
   display: none;
+}
+
+.relative {
+  position: relative;
+}
+
+#playerStats,
+#computerStats {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.shipResults {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.shipIcon {
+  width: 26px;
+}
+
+#playerBoard .gameOver,
+#computerBoard .gameOver {
+  background-color: var(--leaf);
+}
+
+@media (max-width: 880px) {
+  .board-container:first-child {
+    margin-bottom: 50px;
+  }
+
+  .board {
+    width: 300px;
+    height: 300px;
+  }
+
+  .shipIcon {
+    width: 22px;
+  }
+}
+
+@media (max-width: 320px) {
+  h1 {
+    font-size: 40px;
+  }
 }
