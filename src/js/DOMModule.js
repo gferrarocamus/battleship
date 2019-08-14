@@ -77,6 +77,46 @@ const DOMModule = (() => {
     div.src = BrownShip;
   };
 
+  const highlightUnsunk = (playerShips, computerShips) => {
+    const computerBoard = document.getElementsByClassName('computerBoard');
+    const computerShipCoords = [].concat(...computerShips.map((ship) => ship.cells));
+
+    const computerDivs = [...computerBoard].filter((div) => {
+      const row = +div.getAttribute('data-index')[0];
+      const col = +div.getAttribute('data-index')[1];
+      const index = computerShipCoords.findIndex(
+        (cell) => cell[0] === row && cell[1] === col,
+      );
+      if (index === -1) return false;
+      return true;
+    });
+
+    const playerDivs = [].concat(...playerShips.map((ship) => {
+      const divs = [];
+      for (let i = 0; i < ship.cells.length; i++) {
+        const div = document.getElementById(
+          `${ship.cells[i][0]}${ship.cells[i][1]}`,
+        );
+        divs.push(div);
+      }
+      return divs;
+    }));
+
+    const targetDivs = [...playerDivs, ...computerDivs].filter((div) => div !== null);
+
+    targetDivs.forEach((div) => {
+      if ([...div.classList].indexOf('hit') === -1
+      && [...div.classList].indexOf('miss') === -1) {
+        addClassToDiv(div, 'gameOver');
+      }
+    });
+  };
+
+  const gameOverMessage = (computerLost) => {
+    if (computerLost) return 'Human Player Wins!';
+    return 'The Machine Wins!';
+  };
+
   const displayRestartButton = () => {
     const button = document.getElementById('restart');
     button.classList.remove('hide');
@@ -89,11 +129,6 @@ const DOMModule = (() => {
     );
   };
 
-  const gameOverMessage = (computerLost) => {
-    if (computerLost) return 'Human Player Wins!';
-    return 'The Machine Wins!';
-  };
-
   return {
     displayBoard,
     displayShips,
@@ -103,8 +138,9 @@ const DOMModule = (() => {
     displayStats,
     displayShipIcons,
     updateShipIcons,
-    displayRestartButton,
+    highlightUnsunk,
     gameOverMessage,
+    displayRestartButton,
   };
 })();
 

@@ -259,6 +259,11 @@ h4 {
   width: 26px;
 }
 
+#playerBoard .gameOver,
+#computerBoard .gameOver {
+  background-color: var(--leaf);
+}
+
 @media (max-width: 880px) {
   .board-container:first-child {
     margin-bottom: 50px;

@@ -68,6 +68,8 @@ const gameModule = (() => {
       DOMModule.displayStats(playerStats, player);
       DOMModule.displayStats(computerStats, computer);
       DOMModule.displayRestartButton();
+      DOMModule.highlightUnsunk(player.placedShips, computer.placedShips);
+
       return true;
     }
     return false;
@@ -113,7 +115,6 @@ const gameModule = (() => {
     DOMModule.displayBoard(playerBoardDiv, player.board.matrix);
     DOMModule.displayBoard(computerBoardDiv);
     DOMModule.displayShips(playerShips);
-
     const callback = (e) => {
       const row = e.target.getAttribute('data-index')[0];
       const col = e.target.getAttribute('data-index')[1];
