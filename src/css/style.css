@@ -45,6 +45,12 @@ h1 {
   font-size: 48px;
   font-weight: 900;
   text-align: center;
+  cursor: default;
+  transition: letter-spacing 1s ease-in-out;
+}
+
+h1:hover {
+  letter-spacing: 3;
 }
 
 h4 {
@@ -96,6 +102,15 @@ h4 {
   background-color: var(--light-gray);
 }
 
+.playerBoard {
+  transition: background-color 0.5s ease-in-out;
+}
+
+.computerBoard:hover {
+  background-color: var(--middle-gray);
+  cursor: pointer;
+}
+
 .playerBoard.ship {
   background-color: var(--marine);
 }
@@ -126,15 +141,46 @@ h4 {
   border-bottom: 2px solid var(--bright-blue);
 }
 
+.playerBoard.ship.horizontal.hit {
+  border-top: 2px solid brown;
+  border-bottom: 2px solid brown;
+}
+
+.playerBoard.ship.vertical.hit {
+  border-right: 2px solid brown;
+  border-left: 2px solid brown;
+}
+
+.playerBoard.ship.first-cell.horizontal.hit {
+  border-left: 2px solid brown;
+}
+
+.playerBoard.ship.last-cell.horizontal.hit {
+  border-right: 2px solid brown;
+}
+
+.playerBoard.ship.first-cell.vertical.hit {
+  border-top: 2px solid brown;
+}
+
+.playerBoard.ship.last-cell.vertical.hit {
+  border-bottom: 2px solid brown;
+}
+
 .hit,
-.miss {
+.miss,
+.computerBoard.hit,
+.computerBoard.miss {
   pointer-events: none;
 }
 
-.miss {
+.miss,
+.computerBoard.miss,
+.playerBoard.miss {
   background-color: var(--water);
 }
 
+.hit,
 .computerBoard.hit,
 .playerBoard.hit {
   background-color: brown;
@@ -156,6 +202,17 @@ h4 {
   border: 2px solid black;
   color: var(--light-gray);
   box-shadow: 5px 5px var(--bright-blue);
+}
+
+.button:focus {
+  outline: black;
+}
+
+.button:hover,
+#play:hover,
+#restart:hover {
+  background-color: var(--middle-gray);
+  color: black;
 }
 
 #play {
@@ -202,6 +259,11 @@ h4 {
   width: 26px;
 }
 
+#playerBoard .gameOver,
+#computerBoard .gameOver {
+  background-color: var(--leaf);
+}
+
 @media (max-width: 880px) {
   .board-container:first-child {
     margin-bottom: 50px;
@@ -214,5 +276,11 @@ h4 {
 
   .shipIcon {
     width: 22px;
+  }
+}
+
+@media (max-width: 320px) {
+  h1 {
+    font-size: 40px;
   }
 }
