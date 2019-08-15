@@ -55,13 +55,15 @@ const gameModule = (() => {
   const checkForWin = (player, computer) => {
     const playerShipResults = document.getElementById('playerShipResults');
     const computerShipResults = document.getElementById('computerShipResults');
-    DOMModule.updateShipIcons(playerShipResults, player);
-    DOMModule.updateShipIcons(computerShipResults, computer);
+    const playerWon = computer.board.allSunk();
+    const computerWon = player.board.allSunk();
+    DOMModule.updateShipIcons(playerShipResults, player, playerWon);
+    DOMModule.updateShipIcons(computerShipResults, computer, computerWon);
 
-    if (player.board.allSunk() || computer.board.allSunk()) {
+    if (playerWon || computerWon) {
       player.active = false;
       computer.active = false;
-      const msg = DOMModule.gameOverMessage(computer.board.allSunk());
+      const msg = DOMModule.gameOverMessage(playerWon);
       DOMModule.displayMessage(msg);
       const playerStats = document.getElementById('playerStats');
       const computerStats = document.getElementById('computerStats');
