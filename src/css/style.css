@@ -260,7 +260,7 @@ h4 {
 }
 
 #computerBoard .gameOver {
-  background-color: var(--leaf);
+  background-color: var(--marine);
 }
 
 .playerBoard.ship.horizontal.gameOver {

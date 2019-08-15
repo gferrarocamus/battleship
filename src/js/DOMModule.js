@@ -1,5 +1,6 @@
 import BlackShip from '../img/ship-black.svg';
 import BrownShip from '../img/ship-brown.svg';
+import BlueShip from '../img/ship-blue.svg';
 
 const DOMModule = (() => {
   const displayBoard = (parent, matrix = null) => {
@@ -68,13 +69,29 @@ const DOMModule = (() => {
     }
   };
 
-  const updateShipIcons = (container, player) => {
-    if (+player.sunkShips() < 1) return;
+  const updateShipIcons = (container, player, playerWon) => {
+    const sunkCount = +player.sunkShips();
+    if (sunkCount < 1 && !playerWon) return;
 
-    const index = +player.sunkShips() - 1;
+    let start;
+    let end;
+    let src;
     const divs = container.children;
-    const div = [...divs][index];
-    div.src = BrownShip;
+
+    if (playerWon) {
+      start = 9;
+      end = sunkCount - 1;
+      src = BlueShip;
+    } else {
+      start = sunkCount - 1;
+      end = sunkCount - 2;
+      src = BrownShip;
+    }
+
+    for (let i = start; i > end; i--) {
+      const div = [...divs][i];
+      div.src = src;
+    }
   };
 
   const highlightUnsunk = (playerShips, computerShips) => {
@@ -112,8 +129,8 @@ const DOMModule = (() => {
     });
   };
 
-  const gameOverMessage = (computerLost) => {
-    if (computerLost) return 'Human Player Wins!';
+  const gameOverMessage = (playerWon) => {
+    if (playerWon) return 'Human Player Wins!';
     return 'The Machine Wins!';
   };
 
