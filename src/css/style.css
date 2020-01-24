@@ -47,6 +47,7 @@ h1 {
   text-align: center;
   cursor: default;
   transition: letter-spacing 1s ease-in-out;
+  margin: 15px 0;
 }
 
 h1:hover {
@@ -64,7 +65,6 @@ h4 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-bottom: 50px;
 }
 
 #main {
@@ -81,12 +81,18 @@ h4 {
 .board-container {
   position: relative;
   text-align: center;
+  padding: 0 15px;
+}
+
+.board-container:first-child {
+  min-height: 396px;
+  margin-bottom: 30px;
 }
 
 .board {
   background-color: var(--slate);
-  width: 400px;
-  height: 400px;
+  width: 250px;
+  height: 250px;
   display: grid;
   margin-bottom: 20px;
   grid-template-columns: repeat(10, 1fr);
@@ -108,7 +114,7 @@ h4 {
 
 .computerBoard:hover {
   background-color: var(--middle-gray);
-  cursor: pointer;
+  cursor: crosshair;
 }
 
 .playerBoard.ship {
@@ -252,11 +258,11 @@ h4 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 20px;
 }
 
 .shipIcon {
-  width: 26px;
+  width: 20px;
+  padding-top: 20px;
 }
 
 #computerBoard .gameOver {
@@ -289,23 +295,45 @@ h4 {
   border-bottom: 2px solid var(--leaf);
 }
 
-@media (max-width: 880px) {
-  .board-container:first-child {
-    margin-bottom: 50px;
-  }
-
-  .board {
-    width: 300px;
-    height: 300px;
-  }
-
-  .shipIcon {
-    width: 22px;
-  }
-}
-
 @media (max-width: 320px) {
   h1 {
     font-size: 40px;
+  }
+}
+
+@media (min-width: 500px) {
+  .board {
+    width: 350px;
+    height: 350px;
+  }
+
+  .board-container,
+  .board-container:first-child {
+    min-height: 496px;
+  }  
+}
+
+@media (min-width: 880px) {
+  .shipIcon {
+    width: 26px;
+  }
+
+  .board-container:first-child {
+    margin-bottom: 0px;
+  }
+}
+
+@media (min-width: 880px) and (min-height: 880px) {
+  h1 {
+    margin: 35px 0;
+  }
+
+  .board-container {
+    min-height: 546px;
+  }
+  
+  .board {
+    width: 400px;
+    height: 400px;
   }
 }
