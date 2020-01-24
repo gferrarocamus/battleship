@@ -1,6 +1,8 @@
 # Battleship
 
-This is a single-player game of [Battleship](https://en.wikipedia.org/wiki/Battleship_(game)) built entirely with JavaScript, CSS, and HTML, tested with Jest, and packed with Webpacker.
+This is a single-player game of [Battleship](https://en.wikipedia.org/wiki/Battleship_(game)) built entirely with  JavaScript, CSS, and HTML, tested with Jest, and packed with Webpacker.
+
+## Background & Description
 
 Based on my [previous project](https://github.com/1ba1/battleship), this new version introduces an enhanced AI that is smart enough to try adjacent slots after getting a hit.
 
@@ -8,4 +10,10 @@ Before starting the game, the player can take control over their grid by choosin
 
 The updated UX now shows icons representing the status of the players' ships, either sunk or unsunk, throughout the game.
 
+## Live Version
+
 You can play it in the browser [here](https://gferrarocamus.github.io/battleship).
+
+## License
+
+MIT © 2020 Giuliana Ferraro
