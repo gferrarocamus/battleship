@@ -8,47 +8,59 @@ import '../css/style.css';
 
 const gameModule = (() => {
   const initializeBoard = (board) => {
+    DOMModule.setButtonDisabled('randomize', true);
     let count1 = 0;
     let count2 = 0;
     let count3 = 0;
     let count4 = 0;
+    let failed = 0;
     const placedShips = [];
 
-    while (count1 < 4) {
-      const ship = shipFactory(1, true);
-      const placedShip = board.placeShip(ship, randomCoordinates());
-      if (placedShip !== -1) {
-        count1++;
-        placedShips.push(placedShip);
-      }
-    }
-
-    while (count2 < 3) {
-      const ship = shipFactory(2, randomBoolean());
-      const placedShip = board.placeShip(ship, randomCoordinates());
-      if (placedShip !== -1) {
-        count2++;
-        placedShips.push(placedShip);
-      }
-    }
-
-    while (count3 < 2) {
-      const ship = shipFactory(3, randomBoolean());
-      const placedShip = board.placeShip(ship, randomCoordinates());
-      if (placedShip !== -1) {
-        count3++;
-        placedShips.push(placedShip);
-      }
-    }
-
-    while (count4 < 1) {
+    while (count4 < 1 && failed < 1000) {
       const ship = shipFactory(4, randomBoolean());
       const placedShip = board.placeShip(ship, randomCoordinates());
       if (placedShip !== -1) {
         count4++;
         placedShips.push(placedShip);
+      } else {
+        failed++;
       }
     }
+
+    while (count3 < 2 && failed < 2000) {
+      const ship = shipFactory(3, randomBoolean());
+      const placedShip = board.placeShip(ship, randomCoordinates());
+      if (placedShip !== -1) {
+        count3++;
+        placedShips.push(placedShip);
+      } else {
+        failed++;
+      }
+    }
+
+    while (count2 < 3 && failed < 3000) {
+      const ship = shipFactory(2, randomBoolean());
+      const placedShip = board.placeShip(ship, randomCoordinates());
+      if (placedShip !== -1) {
+        count2++;
+        placedShips.push(placedShip);
+      } else {
+        failed++;
+      }
+    }
+
+    while (count1 < 4 && failed < 4000) {
+      const ship = shipFactory(1, true);
+      const placedShip = board.placeShip(ship, randomCoordinates());
+      if (placedShip !== -1) {
+        count1++;
+        placedShips.push(placedShip);
+      } else {
+        failed++;
+      }
+    }
+
+    DOMModule.setButtonDisabled('randomize', false);
     return placedShips;
   };
 
@@ -112,6 +124,7 @@ const gameModule = (() => {
     const computerBoard = gameboardFactory();
     const playerShips = initializeBoard(playerBoard);
     const computerShips = initializeBoard(computerBoard);
+    if (playerShips.length < 10 || computerShips.length < 10) location.reload();
     const player = playerFactory(true, playerBoard, playerShips);
     const computer = playerFactory(false, computerBoard, computerShips, AI());
     DOMModule.displayBoard(playerBoardDiv, player.board.matrix);
