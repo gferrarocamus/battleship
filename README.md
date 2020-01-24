@@ -1,6 +1,6 @@
 # Battleship
 
-This is a single-player game of [Battleship](https://en.wikipedia.org/wiki/Battleship_(game)) built entirely with  JavaScript, CSS, and HTML, tested with Jest, and packed with Webpacker.
+This is a single-player game of [Battleship](https://en.wikipedia.org/wiki/Battleship_(game)) built entirely with  JavaScript, CSS, and HTML, tested with Jest, and bundled with Webpack.
 
 ## Background & Description
 
