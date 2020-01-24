@@ -146,6 +146,10 @@ const DOMModule = (() => {
     );
   };
 
+  const setButtonDisabled = (id, bool) => {
+    document.getElementById(id).disabled = bool;
+  };
+
   return {
     displayBoard,
     displayShips,
@@ -158,6 +162,7 @@ const DOMModule = (() => {
     highlightUnsunk,
     gameOverMessage,
     displayRestartButton,
+    setButtonDisabled,
   };
 })();
 
