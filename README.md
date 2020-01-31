@@ -4,7 +4,7 @@ This is a single-player game of [Battleship](https://en.wikipedia.org/wiki/Battl
 
 ## Background & Description
 
-Based on my [previous project](https://github.com/1ba1/battleship), this new version introduces an enhanced AI that is smart enough to try adjacent slots after getting a hit, as well as UI/UX improvements.
+Based on our [previous project](https://github.com/1ba1/battleship), this new version introduces an enhanced AI that is smart enough to try adjacent slots after getting a hit, as well as UI/UX improvements.
 
 ## Features
 
