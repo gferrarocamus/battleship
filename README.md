@@ -54,7 +54,7 @@ You can play it in the browser [here](https://gferrarocamus.github.io/battleship
 
 ## License
 
-MIT © 2020 Giuliana Ferraro
+MIT © 2020 [Giuliana Ferraro](https://www.giulianaferraro.com/) <[giuliana.ferraro.dev@gmail.com](mailto:giuliana.ferraro.dev@gmail.com)>
 
 ---
 
